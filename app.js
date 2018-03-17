@@ -1,11 +1,13 @@
-// Check values done
-// Creating the print function
 function print(input){
   const result = document.getElementById("result").append(input);
 }
 
-
-
+// A closure
+function createAdder(amount) {
+  return function (number){
+    return number + amount;
+  };
+}
 
 
 
