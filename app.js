@@ -9,15 +9,12 @@ function createAdder(amount) {
   };
 }
 
-// Optional Arguments
+// Optional Arguments using Recursion
 function power(base, exponent) {
-  var result = 1;
-  console.log(typeof result);
-  if(exponent === undefined )
-    exponent = 2;
-  for(var i = 0; i < exponent; i++)
-    result *= base;
-  return result;
+  if(exponent === undefined) exponent = 2;
+  if(exponent === 0) return 1;
+  else
+    return base * power(base, exponent - 1);
 }
 
 
