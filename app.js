@@ -9,6 +9,16 @@ function createAdder(amount) {
   };
 }
 
+// Optional Arguments
+function power(base, exponent) {
+  var result = 1;
+  console.log(typeof result);
+  if(exponent === undefined )
+    exponent = 2;
+  for(var i = 0; i < exponent; i++)
+    result *= base;
+  return result;
+}
 
 
 // Chapter5: Functional Programming
