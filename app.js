@@ -1,3 +1,11 @@
+// Aunt Emily's Cats
+// Create a set starting one object which is a cat
+var cats = {"Spot", true};
+ 
+
+
+
+
 function print(input){
   const result = document.getElementById("result").append(input);
 }
