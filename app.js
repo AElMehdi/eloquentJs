@@ -1,13 +1,33 @@
 // Aunt Emily's Cats
 // Create a set starting one object which is a cat
-var cats = {"Spot", true};
- 
+var cats = {"Spot":true};
 
+// Sample entries
+  //
+  // 'Emily died 27/04/2006: Black Leclère' +
+  // 'born 05/04/2006 (mother Lady Penelope): Red Lion, Doctor' +
+  // 'Hobbles the 3rd, Little Iroquois',
+  //
+  // 'Emily died 27/04/2006: Black Leclère' +
+  // 'born 05/04/2006 (mother Lady Penelope): Red Lion, Doctor' +
+  // 'Hobbles the 3rd, Little Iroquois'
 
+// Get pragraphs with born or died
+  const ARCHIVE = ['Emily died 27/04/2006: Black Leclere'
+   + 'born 05/04/2006 (mother Lady Penelope): Red Lion, Doctor Hobbles the 3rd, Little Iroquois',
+
+  'Emily died 22/12/2007: Lady Penelope' +
+  'born 01/01/2008 (mother Nami): Balck Beard, Hoffman, Bruno',
+
+  'born 05/04/2008 (mother Black Beard): Zoro, Luffy',
+
+  'Emily died 06/06/2008: Nami, Zoro'];
 
 
 function print(input){
-  const result = document.getElementById("result").append(input);
+  const result = document.getElementById("result");
+  result.innerHTML = "";
+  result.append(input);
 }
 
 // A closure
