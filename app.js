@@ -13,6 +13,8 @@ var cats = {"Spot":true};
   // 'Hobbles the 3rd, Little Iroquois'
 
 // Get pragraphs with born or died
+  const BORN = 'born';
+  const DIED = 'died';
   const DUMMY_CONTENT = 'I am going to try putting Fat Igor on his shoulder next time I see\n'
   .concat('him, very curious what will happen.\n')
   .concat('Also, the scam I told you about is going better than expected. I have already gotten back\n')
@@ -34,23 +36,59 @@ var cats = {"Spot":true};
                                   .concat('died 27/04/2006: Black Leclere\n')
                                   .concat('born 05/04/2006 (mother Lady Penelope): Red Lion, Doctor Hobbles the 3rd, Little Iroquois');
 
-  const fourthEmail = DUMMY_CONTENT.concat('died 06/06/2008: Nami, Zoro');
+  const fourthEmail = DUMMY_CONTENT.concat('died 06/06/2008: Nami, Zoro, Bruno');
 
 
   const ARCHIVE = [firstEmail, secondEmail, thirdEmail, fourthEmail];
-  // Find pragraphs doing
+  // Find pragraphs done
   // FInd pragraphs starting with Born or Died
   // Find names after born, and after died
   // Add them to the set if born, remove if died
+
+  function runAll(emails){
+    console.log("Cats set before running", cats);
+    var paragraphs = findParagraphs(emails);
+    var bornAndDied = findStartingWith(paragraphs);
+    findCatNames(bornAndDied);
+    return cats;
+  }
 
   function findParagraphs(emails){
     let paragraphs = [];
     for (var i = 0; i < emails.length; i++) {
       paragraphs = paragraphs.concat(emails[i].split("\n"));
     }
-    
+
     return paragraphs;
   }
+
+  function findStartingWith(paragraphs){
+    let containNames = [];
+    for (paragraph of paragraphs) {
+      if (paragraph.startsWith(BORN) || paragraph.startsWith(DIED)) {
+        containNames.push(paragraph);
+      }
+    }
+    return containNames;
+  }
+
+
+  function findCatNames(containNames) {
+    for (paragraph of containNames) {
+      var names = paragraph.split(':')[1].split(',');
+      if (paragraph.includes(BORN)) {
+        for (name of names) {
+          cats[name] = true;
+        }
+      }
+      if (paragraph.includes(DIED)) {
+        for (name of names) {
+          delete cats[name];
+        }
+      }
+    }
+  }
+
 
 
   function forEach(emails, func){
