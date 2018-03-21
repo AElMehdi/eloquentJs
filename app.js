@@ -1,20 +1,6 @@
-// Aunt Emily's Cats
-// Create a set starting one object which is a cat
-var cats = {"Spot":true};
+// Solve Aunt Emily's Cats
+  var cats = {"Spot":true};
 
-// Sample entries
-  //
-  // 'Emily died 27/04/2006: Black Leclère' +
-  // 'born 05/04/2006 (mother Lady Penelope): Red Lion, Doctor' +
-  // 'Hobbles the 3rd, Little Iroquois',
-  //
-  // 'Emily died 27/04/2006: Black Leclère' +
-  // 'born 05/04/2006 (mother Lady Penelope): Red Lion, Doctor' +
-  // 'Hobbles the 3rd, Little Iroquois'
-
-// Get pragraphs with born or died
-  const BORN = 'born';
-  const DIED = 'died';
   const DUMMY_CONTENT = 'I am going to try putting Fat Igor on his shoulder next time I see\n'
   .concat('him, very curious what will happen.\n')
   .concat('Also, the scam I told you about is going better than expected. I have already gotten back\n')
@@ -39,66 +25,64 @@ var cats = {"Spot":true};
   const fourthEmail = DUMMY_CONTENT.concat('died 06/06/2008: Nami, Zoro, Bruno');
 
 
-  const ARCHIVE = [firstEmail, secondEmail, thirdEmail, fourthEmail];
-  // Find pragraphs done
-  // FInd pragraphs starting with Born or Died
-  // Find names after born, and after died
-  // Add them to the set if born, remove if died
+  const EMAILS_ARCHIVE = [firstEmail, secondEmail, thirdEmail, fourthEmail];
 
-  function runAll(emails){
-    console.log("Cats set before running", cats);
-    var paragraphs = findParagraphs(emails);
-    var bornAndDied = findStartingWith(paragraphs);
-    findCatNames(bornAndDied);
-    return cats;
+  const BORN = 'born';
+  const DIED = 'died';
+
+  function runEmilysCatsProblem() {
+    console.log('Initial list of living cats:', cats);
+    for (var i = 0; i < EMAILS_ARCHIVE.length; i++) {
+      var paragraphs = EMAILS_ARCHIVE[i].split("\n");
+      map(processCatNames, filter(containsBornDied, paragraphs));
   }
 
-  function findParagraphs(emails){
-    let paragraphs = [];
-    for (var i = 0; i < emails.length; i++) {
-      paragraphs = paragraphs.concat(emails[i].split("\n"));
-    }
+  console.log('Actual list of living cats, after processing the email:', cats);
 
-    return paragraphs;
-  }
+  function containsBornDied (paragraph){
+    return paragraph.startsWith(BORN) || paragraph.startsWith(DIED);
+  };
 
-  function findStartingWith(paragraphs){
-    let containNames = [];
-    for (paragraph of paragraphs) {
-      if (paragraph.startsWith(BORN) || paragraph.startsWith(DIED)) {
-        containNames.push(paragraph);
-      }
-    }
-    return containNames;
-  }
+  function processCatNames(paragraph) {
+        var names = paragraph.split(':')[1].split(',');
 
-
-  function findCatNames(containNames) {
-    for (paragraph of containNames) {
-      var names = paragraph.split(':')[1].split(',');
-      if (paragraph.includes(BORN)) {
-        for (name of names) {
-          cats[name] = true;
+        if (paragraph.includes(BORN)) {
+          for (name of names) {
+            cats[name] = true;
+          }
         }
-      }
-      if (paragraph.includes(DIED)) {
-        for (name of names) {
-          delete cats[name];
+        if (paragraph.includes(DIED)) {
+          for (name of names) {
+            delete cats[name];
+          }
         }
+      };
+}
+
+ // Helper functions
+  function forEach(array, func) {
+    for (var i = 0; i < array.length; i++) {
+      func(array[i]);
+    }
+  }
+
+  function map(func, array) {
+    var result = [];
+    forEach(array, function(element) {
+      result.push(func(element));
+    });
+    return result;
+  }
+
+  function filter(func, array) {
+    var result = [];
+    forEach(array, function(element){
+      if(func(element)){
+        result.push(element);
       }
-    }
+    });
+    return result;
   }
-
-
-
-  function forEach(emails, func){
-    for (var i = 0; i < emails.length; i++) {
-      console.log(emails[i]);
-    }
-  }
-
-
-
 
 function print(input){
   const result = document.getElementById("result");
@@ -135,23 +119,3 @@ function findSequence(goal) {
   }
   return find(1, "1");
 }
-
-
-// Chapter5: Functional Programming
-//High Order Function
-//Write a forEach function that takes an array and print it
-//
-// function forEach(elements, action){
-//   for (var i = 0; i < elements.length; i++) {
-//     action(elements[i]);
-//   }
-// }
-//
-// // Has a side effect
-// function print(input){
-//   //  const resultDiv = document.getElementById('result');
-//   console.log(input);
-//
-// }
-//
-// forEach(["name1", "name2", "name3"], print);
